@@ -21,24 +21,37 @@ app.use(express.static("website"));
 // Setup Server
 const port = 8888;
 const listeningSuccess = () => {
-  console.log(`Aahhh! I'm alive on ${port}`);
+  console.log(`Aaah! I'm alive on ${port}`);
 };
 const server = app.listen(port, listeningSuccess);
 
 // post data function
 app.post("/add-weather", (req, res) => {
-  console.log(req.body.message); // DEBUGAAA
-  if (req.body.sys) {
-    console.log(`Server: Hello from ${req.body.name}, ${req.body.sys.country}!
-  #########################################`); // DEBUGAAA
-    console.log(req.body); // DEBUGAAA
-    const newCity = req.body;
-    projectData[`${req.body.id}`] = newCity;
+  if (req.body.message) {
+    console.log(req.body.message);
+    res.send({ msg: req.body.message });
+  } else if (req.body.id) {
+    console.log(
+      `Server: Hello from ${req.body.name}, ${req.body.sys.country}!`
+    ); // DEBUGAAAAAAAAAAAAAAA
+
+    console.log(req.body); // DEBUGAAAAAAAAAAAAAAA
+    // console.log(temp); // DEBUGAAAAAAAAAAAAAAA
+
+    const newForecast = {
+      name: `${req.body.name}, ${req.body.sys.country}`,
+      forecast: `${Math.ceil(req.body.main.temp - 273.15)} °C, with ${
+        req.body.weather[0].description
+      }.`,
+    };
+    projectData[`${req.body.id}`] = newForecast;
     res.send({
-      msg: "Data recieved",
+      msg: "Data recieved", // DEBUGAAAAAAAAAAAAAAA
       data: projectData[`${req.body.id}`],
     });
+    console.log(projectData); // DEBUGAAAAAAAAAAAAAAA
+    console.log(projectData[`${req.body.id}`]); // DEBUGAAAAAAAAAAAAAAA
   } else {
-    res.send({ msg: "other stuff happened" });
+    res.send({ msg: "alien witchcraft" });
   }
 });
