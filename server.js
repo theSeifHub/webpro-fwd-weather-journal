@@ -25,33 +25,33 @@ const listeningSuccess = () => {
 };
 const server = app.listen(port, listeningSuccess);
 
-// post data function
+// posting data to endpoint
 app.post("/add-weather", (req, res) => {
   if (req.body.message) {
     console.log(req.body.message);
     res.send({ msg: req.body.message });
   } else if (req.body.id) {
     console.log(
-      `Server: Hello from ${req.body.name}, ${req.body.sys.country}!`
-    ); // DEBUGAAAAAAAAAAAAAAA
-
-    console.log(req.body); // DEBUGAAAAAAAAAAAAAAA
-    // console.log(temp); // DEBUGAAAAAAAAAAAAAAA
-
-    const newForecast = {
+      `Server: Hello from ${req.body.name}, ${req.body.sys.country}!` // DEBUGAAAAAAAAAAAAAAA
+    );
+    // console.log(req.body); // DEBUGAAAAAAAAAAAAAAA
+    projectData = {
       name: `${req.body.name}, ${req.body.sys.country}`,
       forecast: `${Math.ceil(req.body.main.temp - 273.15)} °C, with ${
         req.body.weather[0].description
-      }.`,
+      }`,
     };
-    projectData[`${req.body.id}`] = newForecast;
     res.send({
-      msg: "Data recieved", // DEBUGAAAAAAAAAAAAAAA
-      data: projectData[`${req.body.id}`],
+      msg: "Data recieved",
+      dataId: req.body.id,
     });
     console.log(projectData); // DEBUGAAAAAAAAAAAAAAA
-    console.log(projectData[`${req.body.id}`]); // DEBUGAAAAAAAAAAAAAAA
   } else {
-    res.send({ msg: "alien witchcraft" });
+    res.send({ msg: "alien witchcraft exists" });
   }
+});
+
+// getting data from the endpoint
+app.get("/get-weather", (req, res) => {
+  res.send(projectData);
 });
