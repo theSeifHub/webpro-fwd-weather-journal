@@ -32,9 +32,9 @@ app.post("/add-weather", (req, res) => {
     res.send({ msg: req.body.message });
   } else if (req.body.id) {
     console.log(
-      `Server: Hello from ${req.body.name}, ${req.body.sys.country}!` // DEBUGAAAAAAAAAAAAAAA
+      `Server: Hello from ${req.body.name}, ${req.body.sys.country}!` // 4 DEBUGAAA
     );
-    // console.log(req.body); // DEBUGAAAAAAAAAAAAAAA
+
     projectData = {
       name: `${req.body.name}, ${req.body.sys.country}`,
       forecast: `${Math.ceil(req.body.main.temp - 273.15)} °C, with ${
@@ -45,7 +45,7 @@ app.post("/add-weather", (req, res) => {
       msg: "Data recieved",
       dataId: req.body.id,
     });
-    console.log(projectData); // DEBUGAAAAAAAAAAAAAAA
+    console.log(projectData); // 4DEBUGAAA
   } else {
     res.send({ msg: "alien witchcraft exists" });
   }

@@ -16,7 +16,7 @@ const getWeather = async (url, zip, key) => {
     res = await res.json();
     return res;
   } catch (error) {
-    console.log("HERE's an error man\n" + error); // DEBUGAAAAAAAAAAAAAAA
+    console.log("HERE's an error man\n" + error); // 4DEBUGAAA
     // To appropriately handle the error later
   }
 };
@@ -32,7 +32,6 @@ const postData = async (url = "", data = {}) => {
     body: JSON.stringify(data),
   });
   response = await response.json();
-  // console.log(response.dataId); // DEBUGAAAAAAAAAAAAAAA
 
   return response;
 };
@@ -68,7 +67,7 @@ function performAction() {
   getWeather(baseURL, zipcode, apiKey)
     .then((data) => postData("/add-weather", data))
     .then((res) => {
-      console.log(res.msg); // DEBUGAAAAAAAAAAAAAAA
+      console.log(res.msg); // 4DEBUGAAA
 
       if (res.msg === "Data recieved") {
         console.log(`with ID: ${res.dataId}`);
@@ -82,7 +81,7 @@ function performAction() {
     });
 }
 
-// Event listeners
+// Event listeners to generate data
 document.getElementById("generate").addEventListener("click", performAction);
 zipInput.addEventListener("keyup", (evt) => {
   if (evt.key === "Enter") {
